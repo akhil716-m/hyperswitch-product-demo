@@ -1,0 +1,130 @@
+import React, { useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { apiResponseState, demoModeState, debugCredentialsState } from '../utils/atoms';
+import { makeAuthenticatedRequest } from '../utils/api';
+import { filters } from '../utils/fieldMappings';
+
+// Static values from Setup Recurring and Charge flow
+const STATIC_CUSTOMER_ID = 'cus_1773486075830';
+const STATIC_PAYMENT_METHOD_ID = 'pm_tP3aIuMShtgohSEJnslE';
+
+const RecurringCharge = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+  const [hasClicked, setHasClicked] = useState(false);
+  const setApiResponse = useSetRecoilState(apiResponseState);
+  const mode = useRecoilValue(demoModeState);
+  const debugCreds = useRecoilValue(debugCredentialsState);
+
+  const handleRecurringCharge = async () => {
+    setHasClicked(true);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Create recurring charge (server-side, no SDK)
+      const chargeData = await makeAuthenticatedRequest('/api/create-recurring-charge', {
+        method: 'POST',
+        body: JSON.stringify({
+          customer_id: STATIC_CUSTOMER_ID,
+          payment_method_id: STATIC_PAYMENT_METHOD_ID,
+          amount: 10000,
+        }),
+      }, mode, debugCreds);
+
+      if (chargeData.error) {
+        throw new Error(chargeData.error.message);
+      }
+
+      setResult(chargeData);
+
+      const retrieveData = await makeAuthenticatedRequest(`/api/payment/${chargeData.payment_id}`, {
+        method: 'GET',
+      }, mode, debugCreds);
+
+      setApiResponse({
+        steps: [
+          {
+            title: 'Step 1: Server Recurring Charge',
+            request: {
+              method: 'POST',
+              url: '/payments',
+              body: {
+                amount: 10000,
+                currency: 'USD',
+                customer_id: STATIC_CUSTOMER_ID,
+                off_session: true,
+                recurring_details: {
+                  type: 'payment_method_id',
+                  data: STATIC_PAYMENT_METHOD_ID,
+                },
+              },
+            },
+            response: filters.recurringCharge(chargeData),
+          },
+          {
+            title: 'Step 2: Retrieve Payment',
+            request: {
+              method: 'GET',
+              url: `/payments/${chargeData.payment_id}`,
+            },
+            response: filters.recurringChargeRetrieve(retrieveData),
+          },
+        ],
+        currentStep: 2,
+      });
+
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 sm:p-4">
+        <h3 className="font-medium text-blue-900 dark:text-blue-300 mb-2">
+          Server-Side Recurring Charge
+        </h3>
+        <p className="text-sm text-blue-700 dark:text-blue-400 break-words">
+          This flow charges using a saved payment method from a previous "Setup Recurring and Charge" flow.
+        </p>
+        <div className="mt-2 text-sm text-blue-700 dark:text-blue-400 space-y-1">
+          <p className="break-all"><strong>Customer ID:</strong> {STATIC_CUSTOMER_ID}</p>
+          <p className="break-all"><strong>Payment Method ID:</strong> {STATIC_PAYMENT_METHOD_ID}</p>
+        </div>
+      </div>
+
+      <button
+        onClick={handleRecurringCharge}
+        disabled={isLoading || hasClicked}
+        className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 px-4 sm:px-6 rounded-lg transition-colors disabled:opacity-50 min-h-[44px]"
+      >
+        Execute Recurring Charge ($100)
+      </button>
+
+      {error && (
+        <div className="p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+          <p className="text-sm text-red-600 dark:text-red-400 break-words">{error}</p>
+        </div>
+      )}
+
+      {result && (
+        <div className="p-3 sm:p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+          <h4 className="font-medium text-green-900 dark:text-green-300 mb-2">Success!</h4>
+          <div className="text-sm text-green-700 dark:text-green-400 space-y-1">
+            <p className="break-all"><strong>Payment ID:</strong> {result.payment_id}</p>
+            <p><strong>Status:</strong> {result.status}</p>
+            <p className="break-all"><strong>Payment Method ID:</strong> {result.payment_method_id || 'N/A'}</p>
+            <p className="break-all"><strong>Connector Mandate ID:</strong> {result.connector_mandate_id || 'N/A'}</p>
+            <p className="break-all"><strong>Network Transaction ID:</strong> {result.network_transaction_id || 'N/A'}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default RecurringCharge;

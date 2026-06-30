@@ -1,0 +1,27 @@
+{
+  "name": "hyperswitch-demo-app",
+  "version": "1.24.0",
+  "description": "Hyperswitch Payment Flows Demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "server": "node server/server.js",
+    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "bash scripts/deploy.sh",
+    "deploy:setup": "netlify login && netlify init",
+    "deploy:preview": "npm run build && netlify deploy --dir=client/dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "react-is": "^18.3.1",
+    "webpack-cli": "^7.0.2"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.38.1"
+  }
+}
