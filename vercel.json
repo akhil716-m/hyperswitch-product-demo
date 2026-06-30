@@ -1,6 +1,12 @@
 {
-  "installCommand": "npm install --prefix client",
+  "installCommand": "npm install --prefix client && npm install --prefix server",
   "buildCommand": "npm run build --prefix client",
   "outputDirectory": "client/dist",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    { "source": "/config", "destination": "/api/index" },
+    { "source": "/urls", "destination": "/api/index" },
+    { "source": "/health", "destination": "/api/index" },
+    { "source": "/api/(.*)", "destination": "/api/index" }
+  ]
 }

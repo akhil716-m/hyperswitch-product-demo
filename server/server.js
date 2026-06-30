@@ -1770,20 +1770,30 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-const clientDistPath = path.join(__dirname, '../client/dist');
-const fs = require('fs');
+// On Vercel, the client build is served directly by the platform (see
+// vercel.json), and this app only ever receives requests rewritten to
+// /config, /urls, /health, or /api/*. Skip the static-file fallback there.
+if (!process.env.VERCEL) {
+  const clientDistPath = path.join(__dirname, '../client/dist');
+  const fs = require('fs');
 
-if (fs.existsSync(clientDistPath)) {
-  app.use(express.static(clientDistPath));
-  app.use((req, res) => {
-    res.sendFile(path.join(clientDistPath, 'index.html'));
-  });
-} else {
-  app.use((req, res) => {
-    res.status(404).json({ error: 'Not found' });
-  });
+  if (fs.existsSync(clientDistPath)) {
+    app.use(express.static(clientDistPath));
+    app.use((req, res) => {
+      res.sendFile(path.join(clientDistPath, 'index.html'));
+    });
+  } else {
+    app.use((req, res) => {
+      res.status(404).json({ error: 'Not found' });
+    });
+  }
 }
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+module.exports = app;
+
+// Only listen on a port for local/standalone (non-serverless) runs.
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
