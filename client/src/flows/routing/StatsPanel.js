@@ -4,8 +4,8 @@ import { Activity, DollarSign, TrendingUp, CheckCircle } from 'lucide-react';
 // Stat Card Component with Juspay Blue
 const StatCard = ({ icon: Icon, label, value, subtext, color = 'blue' }) => {
   const colorStyles = {
-    blue: 'bg-[#E6F0FF] border-[#0066FF] text-[#0066FF]',
-    green: 'bg-[#E6F0FF] border-[#10B981] text-[#10B981]',
+    blue: 'bg-[#eef0fc] border-[#5e6ad2] text-[#5e6ad2]',
+    green: 'bg-[#eef0fc] border-[#10B981] text-[#10B981]',
     amber: 'bg-[#FFF7ED] border-[#F59E0B] text-[#F59E0B]',
   };
   
@@ -34,8 +34,8 @@ const PspDistributionChart = ({ distribution, psps }) => {
   const maxValue = Math.max(...data.map(d => d.value), 1);
   
   return (
-    <div className="bg-white rounded-xl border-2 border-[#E6F0FF] p-4">
-      <h4 className="text-sm font-bold text-[#0066FF] mb-3 uppercase tracking-wide">PSP Distribution</h4>
+    <div className="bg-white rounded-xl border-2 border-[#eef0fc] p-4">
+      <h4 className="text-sm font-bold text-[#5e6ad2] mb-3 uppercase tracking-wide">PSP Distribution</h4>
       
       {total === 0 ? (
         <div className="h-24 flex items-center justify-center text-gray-400 text-sm">
@@ -47,9 +47,9 @@ const PspDistributionChart = ({ distribution, psps }) => {
             {data.map((item, idx) => (
               <div key={idx} className="flex items-center gap-2">
                 <div className="w-6 text-xs font-bold text-gray-700">{item.name}</div>
-                <div className="flex-1 bg-[#E6F0FF] rounded h-3 overflow-hidden">
+                <div className="flex-1 bg-[#eef0fc] rounded h-3 overflow-hidden">
                   <div 
-                    className="h-full rounded bg-[#0066FF] transition-all duration-500"
+                    className="h-full rounded bg-[#5e6ad2] transition-all duration-500"
                     style={{ width: `${(item.value / maxValue) * 100}%` }}
                   />
                 </div>
@@ -63,7 +63,7 @@ const PspDistributionChart = ({ distribution, psps }) => {
           <div className="mt-3 grid grid-cols-4 gap-1">
             {data.map((item, idx) => (
               <div key={idx} className="text-center">
-                <p className="text-xs font-bold text-[#0066FF]">{item.name}</p>
+                <p className="text-xs font-bold text-[#5e6ad2]">{item.name}</p>
                 <p className="text-xs text-gray-600">{item.value}</p>
               </div>
             ))}
@@ -132,13 +132,13 @@ const StatsPanel = ({ stats, psps }) => {
       <PspDistributionChart distribution={stats.pspDistribution} psps={psps} />
       
       {/* PSP Real-time Stats */}
-      <div className="bg-white rounded-xl border-2 border-[#E6F0FF] p-4">
-        <h4 className="text-sm font-bold text-[#0066FF] mb-3 uppercase tracking-wide">PSP Performance</h4>
+      <div className="bg-white rounded-xl border-2 border-[#eef0fc] p-4">
+        <h4 className="text-sm font-bold text-[#5e6ad2] mb-3 uppercase tracking-wide">PSP Performance</h4>
         <div className="space-y-2">
           {psps.map(psp => (
-            <div key={psp.id} className="flex items-center justify-between p-2 bg-[#E6F0FF] rounded-lg text-sm">
+            <div key={psp.id} className="flex items-center justify-between p-2 bg-[#eef0fc] rounded-lg text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#0066FF] flex items-center justify-center text-white text-xs font-bold">
+                <div className="w-8 h-8 rounded-full bg-[#5e6ad2] flex items-center justify-center text-white text-xs font-bold">
                   {psp.shortName}
                 </div>
                 <span className="font-bold text-gray-800">{psp.name}</span>

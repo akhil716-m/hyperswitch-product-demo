@@ -134,8 +134,8 @@ const OrganizationManager = () => {
     <div className="space-y-3">
       <div>
         <div className="flex flex-col gap-3 mb-4">
-          <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-lg p-3 border border-slate-200 dark:border-slate-700 w-full md:max-w-[700px]">
-            <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-lg p-3 border border-gray-200 dark:border-gray-700 w-full md:max-w-[700px]">
+            <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-2">
               <Info size={14} />
               {currentElement ? currentElement.title : 'Element Details'}
             </h4>
@@ -143,7 +143,7 @@ const OrganizationManager = () => {
               {currentElement ? (
                 <ul className="space-y-1">
                   {currentElement.bullets.map((bullet, index) => (
-                    <li key={index} className="text-sm text-slate-800 dark:text-slate-200 flex items-start gap-2">
+                    <li key={index} className="text-sm text-gray-800 dark:text-gray-200 flex items-start gap-2">
                       <span className="text-primary mt-0.5">•</span>
                       <span>{bullet}</span>
                     </li>
@@ -151,7 +151,7 @@ const OrganizationManager = () => {
                 </ul>
               ) : (
                 <div className="h-full flex items-center">
-                  <p className="text-sm text-slate-400 dark:text-slate-500 italic text-left px-4 w-full">
+                  <p className="text-sm text-gray-400 dark:text-gray-500 italic text-left px-4 w-full">
                     Hover over any diagram element to see its definition and purpose.
                   </p>
                 </div>

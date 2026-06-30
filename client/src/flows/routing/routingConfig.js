@@ -6,7 +6,7 @@ export const psps = [
     id: 'psp1',
     name: 'PSP 1',
     shortName: 'P1',
-    color: '#3b82f6', // blue
+    color: '#5e6ad2', // blue
     authRate: 0.92,
     costPerTxn: 0.025, // 2.5%
     avgLatency: 450, // ms

@@ -252,7 +252,7 @@ const PaymentForm = ({ flow }) => {
         variables: isDark ? {
           colorBackground: '#1f2937',
           colorText: '#f9fafb',
-          colorPrimary: '#3b82f6',
+          colorPrimary: '#5e6ad2',
           colorSurface: '#374151',
         } : undefined,
       },

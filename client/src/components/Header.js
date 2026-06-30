@@ -80,7 +80,7 @@ const Header = ({ onToggleSidebar, sidebarOpen }) => {
           </div>
           
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#0066FF] rounded-lg flex items-center justify-center">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#5e6ad2] rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-base sm:text-lg">H</span>
             </div>
             <h1 className="text-base sm:text-xl font-semibold text-gray-900 dark:text-white truncate">

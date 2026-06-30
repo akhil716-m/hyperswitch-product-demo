@@ -6,9 +6,9 @@
   --ec-text: #1a1f36;
   --ec-text-secondary: #5e6573;
   --ec-text-muted: #9ca3af;
-  --ec-primary: #0066FF;
-  --ec-primary-dark: #0052CC;
-  --ec-primary-soft: #E6F0FF;
+  --ec-primary: #5e6ad2;
+  --ec-primary-dark: #4c57b8;
+  --ec-primary-soft: #eef0fc;
 
   color: var(--ec-text);
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
@@ -179,7 +179,7 @@
   height: 12px;
   flex-shrink: 0;
   border-radius: 3px;
-  background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+  background: linear-gradient(135deg, #5e6ad2 0%, #4c57b8 100%);
 }
 
 .ec-tab-title {
@@ -228,7 +228,7 @@
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+  background: linear-gradient(135deg, #5e6ad2 0%, #4c57b8 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -323,7 +323,7 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0066FF 0%, #3385FF 100%);
+  background: linear-gradient(135deg, #5e6ad2 0%, #7b85e6 100%);
   color: white;
   display: flex;
   align-items: center;
@@ -469,7 +469,7 @@
   align-items: center;
   gap: 0.3125rem;
   padding: 0.1875rem 0.5625rem;
-  background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+  background: linear-gradient(135deg, #5e6ad2 0%, #4c57b8 100%);
   color: white;
   font-size: 0.6875rem;
   font-weight: 600;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, Repeat, Shield, AlertTriangle, Database, ChevronRight, Lock, ChevronDown, ChevronUp, RefreshCw, Zap, GitBranch, Palette, Home, LayoutDashboard } from 'lucide-react';
+import { CreditCard, Repeat, Shield, AlertTriangle, Database, ChevronRight, Lock, ChevronDown, ChevronUp, RefreshCw, Zap, GitBranch, Palette, Home, LayoutDashboard, TrendingUp } from 'lucide-react';
 
 const flowCategories = [
   {
@@ -84,6 +84,14 @@ const flowCategories = [
     icon: Zap,
     flows: [
       { id: 'smart_retry_playground', name: 'Smart Retry Playground', description: 'Simulate intelligent retry strategies' },
+    ],
+  },
+  {
+    id: 'revenue_recovery',
+    name: 'Revenue Recovery',
+    icon: TrendingUp,
+    flows: [
+      { id: 'recovery_demo', name: 'Recovery Dashboard', description: 'ML-powered payment retry and recovery pipeline simulator' },
     ],
   },
   {

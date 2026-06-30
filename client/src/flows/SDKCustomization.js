@@ -46,7 +46,7 @@ const SDKCustomization = () => {
     fontSizeBase: '16px',
     spacingUnit: '4px',
     borderRadius: '4px',
-    colorPrimary: '#0066FF',
+    colorPrimary: '#5e6ad2',
     colorBackground: '#ffffff',
     colorText: '#30313d',
     colorDanger: '#df1b41',
@@ -75,11 +75,11 @@ const SDKCustomization = () => {
   });
 
   const [buttonVars, setButtonVars] = useState({
-    buttonBackgroundColor: '#0066FF',
+    buttonBackgroundColor: '#5e6ad2',
     buttonHeight: '40px',
     buttonWidth: '100%',
     buttonBorderRadius: '4px',
-    buttonBorderColor: '#0066FF',
+    buttonBorderColor: '#5e6ad2',
     buttonTextColor: '#ffffff',
     buttonTextFontSize: '16px',
     buttonTextFontWeight: '600',
@@ -1362,7 +1362,7 @@ paymentElement.mount('#payment-element');`;
                             ...rules,
                             [selector]: { ...styles, [prop]: e.target.value }
                           })}
-                          placeholder="#0066FF"
+                          placeholder="#5e6ad2"
                           className="flex-1 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm bg-white dark:bg-gray-700 dark:text-gray-300"
                         />
                       </div>
