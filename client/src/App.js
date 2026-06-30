@@ -98,9 +98,11 @@ const App = () => {
 
   // Load HyperLoader and initialize
   useEffect(() => {
-    // Skip HyperLoader for flows that don't depend on window.Hyper
+    // Skip HyperLoader for flows that don't depend on window.Hyper, and for
+    // the default landing page (no flow selected yet) so the sidebar/readme
+    // aren't blocked behind a payment-SDK fetch the user may not need.
     const flowId = new URLSearchParams(window.location.search).get('flow');
-    if (flowId === 'embedded_components' || flowId === 'recovery_demo') {
+    if (!flowId || flowId === 'embedded_components' || flowId === 'recovery_demo') {
       setIsLoading(false);
       return;
     }
