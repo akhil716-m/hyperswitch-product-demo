@@ -91,7 +91,8 @@ const flowCategories = [
     name: 'Revenue Recovery',
     icon: TrendingUp,
     flows: [
-      { id: 'recovery_demo', name: 'Recovery Dashboard', description: 'ML-powered payment retry and recovery pipeline simulator' },
+      { id: 'recovery_overview', name: 'Recovery Overview', description: 'Monitor failed payments and the live ML recovery pipeline' },
+      { id: 'recovery_simulation', name: 'Recovery Simulation', description: 'Sandbox a single failed invoice and see the ML retry pre-decision' },
     ],
   },
   {
@@ -217,51 +218,51 @@ const Sidebar = ({ onFlowSelect, currentFlow, isOpen, onClose }) => {
       )}
 
       <aside
-        className={`fixed left-0 top-16 bottom-0 w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto z-40
+        className={`fixed left-0 top-16 bottom-0 w-80 bg-gray-900 border-r border-gray-800 overflow-y-auto z-40 flex flex-col
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0`}
       >
-        <div className="p-4">
+        <div className="p-4 flex-1">
           <button
             onClick={() => handleFlowClick({ id: 'readme', name: 'Overview' })}
             className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm mb-3 transition-colors ${
               currentFlow?.id === 'readme'
-                ? 'bg-primary/10 text-primary border border-primary/20'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent'
+                ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                : 'text-gray-300 hover:bg-gray-800 border border-transparent'
             }`}
           >
-            <Home size={18} className={currentFlow?.id === 'readme' ? 'text-primary' : 'text-gray-500'} />
+            <Home size={18} className={currentFlow?.id === 'readme' ? 'text-blue-400' : 'text-gray-500'} />
             <span className="font-medium">Overview</span>
           </button>
 
-          <h2 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+          <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
             Flow Categories
           </h2>
-          
+
           {flowCategories.map((category) => {
             const Icon = category.icon;
             const isExpanded = expandedCategories[category.id];
-            
+
             return (
               <div key={category.id} className="mb-4">
                 <button
                   onClick={() => toggleCategory(category.id)}
-                  className="w-full flex items-center justify-between px-2 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="w-full flex items-center justify-between px-2 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 >
                   <div className="flex items-center gap-2">
-                    {Icon && <Icon size={18} className="text-gray-500 dark:text-gray-400" />}
-                    <span className="font-medium text-gray-700 dark:text-gray-300 text-sm">
+                    {Icon && <Icon size={18} className="text-gray-400" />}
+                    <span className="font-medium text-gray-300 text-sm">
                       {category.name}
                     </span>
                   </div>
                   {isExpanded ? (
-                    <ChevronUp size={16} className="text-gray-400" />
+                    <ChevronUp size={16} className="text-gray-500" />
                   ) : (
-                    <ChevronDown size={16} className="text-gray-400" />
+                    <ChevronDown size={16} className="text-gray-500" />
                   )}
                 </button>
-                
+
                 {isExpanded && (
                   <div className="mt-2 space-y-1 pl-2">
                     {category.flows.map((flow) => (
@@ -270,11 +271,11 @@ const Sidebar = ({ onFlowSelect, currentFlow, isOpen, onClose }) => {
                         onClick={() => handleFlowClick(flow)}
                         disabled={flow.disabled}
                         className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                          flow.disabled 
-                            ? 'opacity-50 cursor-not-allowed text-gray-400 dark:text-gray-600' 
+                          flow.disabled
+                            ? 'opacity-50 cursor-not-allowed text-gray-600'
                             : currentFlow?.id === flow.id
-                              ? 'bg-primary text-white'
-                              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                              ? 'bg-blue-500 text-white'
+                              : 'text-gray-400 hover:bg-gray-800'
                         }`}
                       >
                         <span className="break-words leading-tight">{flow.name}</span>
@@ -285,6 +286,16 @@ const Sidebar = ({ onFlowSelect, currentFlow, isOpen, onClose }) => {
               </div>
             );
           })}
+        </div>
+
+        <div className="p-4 border-t border-gray-800 flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-semibold">
+            JP
+          </div>
+          <div className="min-w-0">
+            <div className="text-sm font-medium text-white truncate">Juspay</div>
+            <div className="text-xs text-gray-500 truncate">Demo workspace</div>
+          </div>
         </div>
       </aside>
     </>

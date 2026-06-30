@@ -46,18 +46,11 @@ export const hyperState = atom({
   default: null,
 });
 
-const getStoredTheme = () => {
-  try {
-    const stored = localStorage.getItem('hyperswitch_demo_theme');
-    return stored === 'dark' ? 'dark' : 'light';
-  } catch {
-    return 'light';
-  }
-};
-
+// Design language is dark-only (matches the recovery-demo reference); the
+// light/dark toggle has been removed app-wide.
 export const themeState = atom({
   key: 'themeState',
-  default: getStoredTheme(),
+  default: 'dark',
 });
 
 export const paymentStatusState = atom({

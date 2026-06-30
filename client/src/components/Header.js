@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { themeState, demoModeState, debugCredentialsState } from '../utils/atoms';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { demoModeState, debugCredentialsState } from '../utils/atoms';
+import { Menu, X } from 'lucide-react';
 import juspayLogo from '../assets/juspay-logo.png';
 import DebugCredentialsModal from './DebugCredentialsModal';
 
@@ -16,21 +16,9 @@ const ComingSoonTooltip = ({ children }) => (
 );
 
 const Header = ({ onToggleSidebar, sidebarOpen }) => {
-  const [theme, setTheme] = useRecoilState(themeState);
   const [demoMode, setDemoMode] = useRecoilState(demoModeState);
   const [debugCredentials, setDebugCredentials] = useRecoilState(debugCredentialsState);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('hyperswitch_demo_theme', newTheme);
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
 
   const handleModeChange = (mode) => {
     if (mode === 'debug') {
@@ -59,31 +47,31 @@ const Header = ({ onToggleSidebar, sidebarOpen }) => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-50 flex items-center justify-between px-3 sm:px-6">
+      <header className="fixed top-0 left-0 right-0 h-16 bg-gray-900 border-b border-gray-800 z-50 flex items-center justify-between px-3 sm:px-6">
         <div className="flex items-center gap-2 sm:gap-4">
           <button
             onClick={onToggleSidebar}
-            className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors lg:hidden"
+            className="p-2 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors lg:hidden"
             aria-label="Toggle navigation"
           >
             {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
           <div className="hidden sm:flex items-center gap-3">
-            <img 
-              src={juspayLogo} 
-              alt="Juspay" 
+            <img
+              src={juspayLogo}
+              alt="Juspay"
               className="h-8 w-auto object-contain"
               style={{ maxWidth: '120px' }}
             />
-            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+            <div className="w-px h-6 bg-gray-700 mx-1"></div>
           </div>
-          
+
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#5e6ad2] rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-base sm:text-lg">H</span>
             </div>
-            <h1 className="text-base sm:text-xl font-semibold text-gray-900 dark:text-white truncate">
+            <h1 className="text-base sm:text-xl font-semibold text-white truncate">
               <span className="sm:hidden">Hyperswitch</span>
               <span className="hidden sm:inline">Hyperswitch Demo</span>
             </h1>
@@ -94,18 +82,18 @@ const Header = ({ onToggleSidebar, sidebarOpen }) => {
           {demoMode === 'debug' && (
             <button
               onClick={() => setShowCredentialsModal(true)}
-              className="hidden sm:block px-3 py-1.5 text-sm font-medium text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"
+              className="hidden sm:block px-3 py-1.5 text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors"
             >
               Edit Credentials
             </button>
           )}
-          <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+          <div className="flex items-center bg-gray-800 rounded-lg p-1">
             <button
               onClick={() => handleModeChange('demo')}
               className={`px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                 demoMode === 'demo'
-                  ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
+                  ? 'bg-gray-700 text-white shadow-sm'
+                  : 'text-gray-400 hover:text-gray-200'
               }`}
             >
               Demo
@@ -113,20 +101,12 @@ const Header = ({ onToggleSidebar, sidebarOpen }) => {
             <ComingSoonTooltip>
               <button
                 disabled
-                className="px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium text-gray-400 cursor-not-allowed"
+                className="px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium text-gray-500 cursor-not-allowed"
               >
                 Debug
               </button>
             </ComingSoonTooltip>
           </div>
-
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-            aria-label="Toggle theme"
-          >
-            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-          </button>
         </div>
       </header>
 

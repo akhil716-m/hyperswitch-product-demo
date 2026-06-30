@@ -29,7 +29,7 @@ const Layout = ({ children, onFlowSelect, currentFlow }) => {
   }, [closeSidebar]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <div className="min-h-screen bg-gray-950 transition-colors duration-200">
       <Header onToggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
       <DebugModeBanner />
       <div className="flex pt-16">

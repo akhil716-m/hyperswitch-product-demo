@@ -16,7 +16,8 @@ import RelayRefund from './flows/RelayRefund';
 import RelayVoid from './flows/RelayVoid';
 import RelayIncrementalAuth from './flows/RelayIncrementalAuth';
 import SmartRetry from './flows/SmartRetry';
-import RecoveryDemo from './flows/RecoveryDemo';
+import RecoveryOverview from './flows/RecoveryOverview';
+import RecoverySimulation from './flows/RecoverySimulation';
 import RoutingSimulator from './flows/routing/RoutingSimulator';
 import ThreeDSDecisionManager from './flows/ThreeDSDecisionManager';
 import OrganizationManager from './flows/OrganizationManager';
@@ -80,7 +81,8 @@ const App = () => {
         { id: 'vault_1', name: 'HS managed SDK & Vault with Proxy', description: 'Hyperswitch vault with PSP payload' },
         { id: 'vault_2', name: 'HS managed SDK & Vault with Unified payments', description: 'Hyperswitch vault with unified payload' },
         { id: 'smart_retry_playground', name: 'Smart Retry Playground', description: 'Simulate intelligent retry strategies' },
-        { id: 'recovery_demo', name: 'Recovery Dashboard', description: 'ML-powered payment retry and recovery pipeline simulator' },
+        { id: 'recovery_overview', name: 'Recovery Overview', description: 'Monitor failed payments and the live ML recovery pipeline' },
+        { id: 'recovery_simulation', name: 'Recovery Simulation', description: 'Sandbox a single failed invoice and see the ML retry pre-decision' },
         { id: 'routing_simulator', name: 'Routing Simulator', description: 'Watch transactions flow through eligibility, rules, and overrides' },
         { id: 'three_ds_decision', name: '3DS Decision Manager', description: 'Risk-based 3DS authentication decisions' },
         { id: 'organization_manager', name: 'Organization Manager', description: 'Mock organization structure and merchant management' },
@@ -102,7 +104,7 @@ const App = () => {
     // the default landing page (no flow selected yet) so the sidebar/readme
     // aren't blocked behind a payment-SDK fetch the user may not need.
     const flowId = new URLSearchParams(window.location.search).get('flow');
-    if (!flowId || flowId === 'embedded_components' || flowId === 'recovery_demo') {
+    if (!flowId || flowId === 'embedded_components' || flowId === 'recovery_overview' || flowId === 'recovery_simulation') {
       setIsLoading(false);
       return;
     }
@@ -230,7 +232,7 @@ const App = () => {
           )}
         </div>
       ) : (
-        <div className={`${currentFlow?.id === 'routing_simulator' || currentFlow?.id === 'three_ds_decision' || currentFlow?.id === 'recovery_demo' ? 'max-w-7xl' : 'max-w-4xl'} mx-auto w-full px-2 sm:px-0 overflow-x-hidden`}>
+        <div className={`${currentFlow?.id === 'routing_simulator' || currentFlow?.id === 'three_ds_decision' || currentFlow?.id === 'recovery_overview' || currentFlow?.id === 'recovery_simulation' ? 'max-w-7xl' : 'max-w-4xl'} mx-auto w-full px-2 sm:px-0 overflow-x-hidden`}>
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               {currentFlow?.name || 'Select a Flow'}
@@ -242,7 +244,7 @@ const App = () => {
 
           {currentFlow && (
             <>
-              <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 mb-6 overflow-hidden ${currentFlow.id === 'chargeback_unification' || currentFlow.id === 'routing_simulator' || currentFlow.id === 'three_ds_decision' || currentFlow.id === 'recovery_demo' ? 'w-full max-w-none' : 'max-w-2xl mx-auto w-full'}`}>
+              <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 mb-6 overflow-hidden ${currentFlow.id === 'chargeback_unification' || currentFlow.id === 'routing_simulator' || currentFlow.id === 'three_ds_decision' || currentFlow.id === 'recovery_overview' || currentFlow.id === 'recovery_simulation' ? 'w-full max-w-none' : 'max-w-2xl mx-auto w-full'}`}>
               {currentFlow.id === 'recurring_charge' ? (
                 <RecurringCharge key={currentFlow.id} />
               ) : currentFlow.id === 'recurring_charge_ntid' ? (
@@ -269,8 +271,10 @@ const App = () => {
                 <RelayIncrementalAuth key={currentFlow.id} />
               ) : currentFlow.id === 'smart_retry_playground' ? (
                 <SmartRetry key={currentFlow.id} />
-              ) : currentFlow.id === 'recovery_demo' ? (
-                <RecoveryDemo key={currentFlow.id} />
+              ) : currentFlow.id === 'recovery_overview' ? (
+                <RecoveryOverview key={currentFlow.id} />
+              ) : currentFlow.id === 'recovery_simulation' ? (
+                <RecoverySimulation key={currentFlow.id} />
               ) : currentFlow.id === 'routing_simulator' ? (
                 <RoutingSimulator key={currentFlow.id} />
               ) : currentFlow.id === 'three_ds_decision' ? (
@@ -288,7 +292,7 @@ const App = () => {
               )}
             </div>
 
-            {currentFlow.id !== 'smart_retry_playground' && currentFlow.id !== 'routing_simulator' && currentFlow.id !== 'three_ds_decision' && currentFlow.id !== 'sdk_customization' && currentFlow.id !== 'recovery_demo' && (
+            {currentFlow.id !== 'smart_retry_playground' && currentFlow.id !== 'routing_simulator' && currentFlow.id !== 'three_ds_decision' && currentFlow.id !== 'sdk_customization' && currentFlow.id !== 'recovery_overview' && currentFlow.id !== 'recovery_simulation' && (
               <div className="max-w-7xl mx-auto">
                 <APIResponsePanel />
               </div>
